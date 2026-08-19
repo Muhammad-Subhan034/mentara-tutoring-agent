@@ -1,26 +1,113 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Mentara token system — a tutor's chalkboard: chalk, highlighter, red-pen marks */
+  --board: #1b2b24;       /* chalkboard */
+  --board-raised: #22352c;
+  --chalk: #eef1ea;       /* chalk-white ink */
+  --chalk-dim: #9db3a4;   /* dimmer chalk, secondary text */
+  --highlighter: #f2c94c; /* highlighter yellow accent */
+  --highlighter-soft: #4a4325;
+  --correct: #6fcf97;     /* checkmark green */
+  --correct-soft: #1f3d2c;
+  --flagged: #eb7a6f;     /* red-pen mark */
+  --flagged-soft: #452a26;
+
+  --ease: cubic-bezier(0.16, 0.8, 0.24, 1);
+
+  --font-display: var(--font-newsreader);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-space-mono);
+  --font-hand: var(--font-caveat);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-board: var(--board);
+  --color-board-raised: var(--board-raised);
+  --color-chalk: var(--chalk);
+  --color-chalk-dim: var(--chalk-dim);
+  --color-highlighter: var(--highlighter);
+  --color-highlighter-soft: var(--highlighter-soft);
+  --color-correct: var(--correct);
+  --color-correct-soft: var(--correct-soft);
+  --color-flagged: var(--flagged);
+  --color-flagged-soft: var(--flagged-soft);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+  --font-hand: var(--font-hand);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--board);
+  color: var(--chalk);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--highlighter);
+  color: var(--board);
+}
+
+:focus-visible {
+  outline: 2px solid var(--highlighter);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+.font-hand {
+  font-family: var(--font-hand);
+}
+
+/* Load-choreography mask-reveal primitive. Visible by default; the JS effect
+   sets the hidden pre-animation state itself via gsap.set() before animating in. */
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.mask i {
+  display: inline-block;
+  font-style: normal;
+}
+
+/* Scroll-reveal primitive. Same principle: visible by default. */
+.reveal {
+  opacity: 1;
+}
+
+/* Chalk-textured grain */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  z-index: 60;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mask i {
+    transform: none !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
