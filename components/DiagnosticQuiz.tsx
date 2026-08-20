@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { DIAGNOSTIC_QUESTIONS } from "@/lib/curriculum";
 import { getStudentId } from "@/lib/student";
+import Reveal from "@/components/Reveal";
 
 type MasteryResult = {
   topic: string;
@@ -46,7 +47,7 @@ export default function DiagnosticQuiz() {
       .sort((a, b) => (a.rate ?? 1) - (b.rate ?? 1))[0];
 
     return (
-      <div className="rounded-sm border border-chalk/15 bg-board-raised p-8">
+      <Reveal variant="scale-in" className="rounded-sm border border-chalk/15 bg-board-raised p-8">
         <h2 className="font-display text-2xl text-chalk">Here's where you stand</h2>
         <div className="mt-6 space-y-3">
           {results.map((r) => (
@@ -65,18 +66,18 @@ export default function DiagnosticQuiz() {
         )}
         <Link
           href={weakest ? `/tutor?topic=${weakest.topic}` : "/tutor"}
-          className="mt-6 inline-block rounded-sm bg-highlighter px-6 py-3 font-mono text-[13px] uppercase tracking-wide text-board"
+          className="btn-sheen mt-6 inline-block rounded-sm bg-highlighter px-6 py-3 font-mono text-[13px] uppercase tracking-wide text-board"
         >
           Start tutoring →
         </Link>
-      </div>
+      </Reveal>
     );
   }
 
   return (
     <div className="space-y-6">
       {DIAGNOSTIC_QUESTIONS.map((q, i) => (
-        <div key={q.id} className="rounded-sm border border-chalk/15 bg-board-raised p-6">
+        <Reveal key={q.id} delay={i * 0.04} className="rounded-sm border border-chalk/15 bg-board-raised p-6">
           <p className="font-mono text-[11px] uppercase tracking-wide text-chalk-dim">
             Question {i + 1} of {DIAGNOSTIC_QUESTIONS.length}
           </p>
@@ -99,13 +100,13 @@ export default function DiagnosticQuiz() {
               );
             })}
           </div>
-        </div>
+        </Reveal>
       ))}
 
       <button
         onClick={handleSubmit}
         disabled={answeredCount < DIAGNOSTIC_QUESTIONS.length || submitting}
-        className="w-full rounded-sm bg-highlighter px-6 py-3 font-mono text-[13px] uppercase tracking-wide text-board disabled:opacity-40"
+        className="btn-sheen w-full rounded-sm bg-highlighter px-6 py-3 font-mono text-[13px] uppercase tracking-wide text-board disabled:opacity-40"
       >
         {submitting
           ? "Scoring…"

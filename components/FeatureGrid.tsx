@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Reveal from "./Reveal";
+import TiltCard from "./TiltCard";
 
 const FEATURES = [
   {
@@ -32,19 +33,18 @@ export default function FeatureGrid() {
       </Reveal>
       <div className="mt-10 grid gap-6 md:grid-cols-2">
         {FEATURES.map((feature, i) => (
-          <Reveal key={feature.href} delay={i * 0.05}>
-            <Link
-              href={feature.href}
-              className="group block h-full rounded-sm border border-chalk/12 bg-board-raised p-7 transition-colors hover:border-chalk/25"
-            >
-              <div className="flex items-center justify-between">
-                <h3 className="font-display text-2xl text-chalk">{feature.title}</h3>
-                <span className="font-mono text-chalk-dim transition-transform group-hover:translate-x-1">
-                  →
-                </span>
-              </div>
-              <p className="mt-3 text-sm leading-relaxed text-chalk-dim">{feature.body}</p>
-            </Link>
+          <Reveal key={feature.href} delay={i * 0.06} variant="scale-in">
+            <TiltCard className="group h-full rounded-sm border border-chalk/12 bg-board-raised">
+              <Link href={feature.href} className="block h-full p-7">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-display text-2xl text-chalk">{feature.title}</h3>
+                  <span className="font-mono text-chalk-dim transition-transform group-hover:translate-x-1">
+                    →
+                  </span>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-chalk-dim">{feature.body}</p>
+              </Link>
+            </TiltCard>
           </Reveal>
         ))}
       </div>

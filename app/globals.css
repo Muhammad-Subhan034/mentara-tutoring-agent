@@ -96,12 +96,85 @@ body {
   z-index: 60;
 }
 
+/* Tilt-on-hover primitive: pointer position (set via JS as CSS custom
+   properties) drives a light perspective tilt plus a radial sheen that
+   tracks the cursor. --tilt-glow lets a card opt into its own accent
+   (e.g. correct/flagged) instead of the default highlighter. */
+.tilt-card {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --sheen-x: 50%;
+  --sheen-y: 50%;
+  --tilt-glow: var(--highlighter);
+  position: relative;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transition:
+    transform 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+  will-change: transform;
+}
+.tilt-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--sheen-x) var(--sheen-y),
+    color-mix(in srgb, var(--tilt-glow) 22%, transparent),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
+  pointer-events: none;
+}
+.tilt-card:hover,
+.tilt-card:focus-within {
+  border-color: color-mix(in srgb, var(--tilt-glow) 45%, transparent) !important;
+  box-shadow: 0 14px 32px -16px color-mix(in srgb, var(--tilt-glow) 40%, transparent);
+}
+.tilt-card:hover::after,
+.tilt-card:focus-within::after {
+  opacity: 1;
+}
+
+/* Sheen-sweep primitive for primary buttons: a diagonal highlight travels
+   across on hover/focus, like light catching chalk dust off a fresh mark. */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    115deg,
+    transparent 25%,
+    color-mix(in srgb, white 55%, transparent) 48%,
+    transparent 72%
+  );
+  transform: translateX(-130%);
+  transition: transform 0.6s var(--ease);
+  pointer-events: none;
+}
+.btn-sheen:hover::before,
+.btn-sheen:focus-visible::before {
+  transform: translateX(130%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .mask i {
     transform: none !important;
   }
   .reveal {
     opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  .tilt-card {
     transform: none !important;
   }
   * {

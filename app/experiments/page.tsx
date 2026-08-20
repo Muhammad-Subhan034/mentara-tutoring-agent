@@ -1,4 +1,5 @@
 import StatTile from "@/components/charts/StatTile";
+import Reveal from "@/components/Reveal";
 import { listPracticeOutcomes } from "@/lib/db";
 
 type ExperimentResult = {
@@ -40,29 +41,32 @@ export default async function ExperimentsPage() {
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16">
-      <p className="font-mono text-[11px] uppercase tracking-widest text-highlighter">Experiments</p>
-      <h1 className="mt-3 font-display text-4xl italic text-chalk md:text-5xl">
+      <Reveal as="p" className="font-mono text-[11px] uppercase tracking-widest text-highlighter">
+        Experiments
+      </Reveal>
+      <Reveal as="h1" variant="clip-wipe" delay={0.05} className="mt-3 font-display text-4xl italic text-chalk md:text-5xl">
         Two teaching styles, measured.
-      </h1>
-      <p className="mt-4 max-w-2xl text-chalk-dim">
+      </Reveal>
+      <Reveal as="p" delay={0.15} className="mt-4 max-w-2xl text-chalk-dim">
         Every tutor session is randomly assigned a hint style. The metric that
         matters isn&rsquo;t how the chat felt — it&rsquo;s whether the
         checkpoint question right after was actually answered correctly.
-      </p>
+      </Reveal>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
-        {results.map((r) => (
-          <StatTile
-            key={r.style}
-            label={STYLE_LABEL[r.style]}
-            value={r.conversionRate !== null ? `${Math.round(r.conversionRate * 100)}%` : "—"}
-            hint={`${r.correct}/${r.n} checkpoints correct`}
-            tone={leader?.style === r.style ? "good" : "neutral"}
-          />
+        {results.map((r, i) => (
+          <Reveal key={r.style} delay={0.2 + i * 0.08} variant="scale-in">
+            <StatTile
+              label={STYLE_LABEL[r.style]}
+              value={r.conversionRate !== null ? `${Math.round(r.conversionRate * 100)}%` : "—"}
+              hint={`${r.correct}/${r.n} checkpoints correct`}
+              tone={leader?.style === r.style ? "good" : "neutral"}
+            />
+          </Reveal>
         ))}
       </div>
 
-      <div className="mt-8 rounded-sm border border-chalk/15 bg-board-raised p-6 text-sm text-chalk-dim">
+      <Reveal delay={0.3} className="mt-8 rounded-sm border border-chalk/15 bg-board-raised p-6 text-sm text-chalk-dim">
         {totalLogged < 20 ? (
           <p>
             Only <strong className="text-chalk">{totalLogged}</strong> checkpoints logged so
@@ -78,7 +82,7 @@ export default async function ExperimentsPage() {
         ) : (
           <p>Dead even across {totalLogged} logged checkpoints.</p>
         )}
-      </div>
+      </Reveal>
     </main>
   );
 }

@@ -75,7 +75,7 @@ export default function Hero() {
           <div data-hero-fade className="mt-9 flex flex-wrap items-center gap-4">
             <Link
               href="/diagnostic"
-              className="rounded-sm bg-highlighter px-6 py-3 font-mono text-[13px] uppercase tracking-wide text-board transition-transform hover:-translate-y-0.5"
+              className="btn-sheen rounded-sm bg-highlighter px-6 py-3 font-mono text-[13px] uppercase tracking-wide text-board transition-transform hover:-translate-y-0.5"
             >
               Take the diagnostic →
             </Link>

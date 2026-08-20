@@ -170,7 +170,7 @@ export default function TutorChat() {
         <button
           type="submit"
           disabled={busy || !input.trim()}
-          className="rounded-sm bg-highlighter px-4 py-2 font-mono text-[12px] uppercase tracking-wide text-board disabled:opacity-40"
+          className="btn-sheen rounded-sm bg-highlighter px-4 py-2 font-mono text-[12px] uppercase tracking-wide text-board disabled:opacity-40"
         >
           Send
         </button>

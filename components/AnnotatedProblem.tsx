@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import TiltCard from "./TiltCard";
 
 export default function AnnotatedProblem() {
   const circleRef = useRef<SVGPathElement>(null);
@@ -50,7 +51,7 @@ export default function AnnotatedProblem() {
   }, []);
 
   return (
-    <div className="relative w-full max-w-sm rounded-sm border border-chalk/15 bg-board-raised p-6 shadow-[6px_6px_0_rgba(242,201,76,0.15)]">
+    <TiltCard className="relative w-full max-w-sm rounded-sm border border-chalk/15 bg-board-raised p-6 shadow-[6px_6px_0_rgba(242,201,76,0.15)]">
       <p className="font-mono text-[11px] uppercase tracking-widest text-chalk-dim">
         Worked problem
       </p>
@@ -97,6 +98,6 @@ export default function AnnotatedProblem() {
         </svg>
         <span className="font-mono text-sm text-correct">x = 4 — correct</span>
       </div>
-    </div>
+    </TiltCard>
   );
 }

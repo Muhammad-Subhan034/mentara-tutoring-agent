@@ -32,7 +32,7 @@ export default function ProcessSection() {
         </Reveal>
         <div className="mt-10 grid gap-px overflow-hidden rounded-sm border border-chalk/10 bg-chalk/10 md:grid-cols-4">
           {STEPS.map((step, i) => (
-            <Reveal key={step.n} delay={i * 0.06} className="bg-board p-6">
+            <Reveal key={step.n} delay={i * 0.09} variant="clip-wipe" className="bg-board p-6">
               <span className="font-display text-3xl italic text-chalk-dim">{step.n}</span>
               <h3 className="mt-4 font-display text-xl text-chalk">{step.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-chalk-dim">{step.body}</p>

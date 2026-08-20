@@ -3,6 +3,9 @@ import { Newsreader, Inter, Space_Mono, Caveat } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import GrainOverlay from "@/components/GrainOverlay";
+import ConceptGraph from "@/components/ConceptGraph";
+import ScrollProgress from "@/components/ScrollProgress";
+import ChalkCursor from "@/components/ChalkCursor";
 import Nav from "@/components/Nav";
 
 const newsreader = Newsreader({
@@ -43,6 +46,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${newsreader.variable} ${inter.variable} ${spaceMono.variable} ${caveat.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-board text-chalk font-body antialiased">
+        <ConceptGraph />
+        <ScrollProgress />
+        <ChalkCursor />
         <SmoothScrollProvider>
           <GrainOverlay />
           <Nav />
